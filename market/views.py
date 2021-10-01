@@ -1,12 +1,8 @@
 from django.shortcuts import render, HttpResponse
-from django.shortcuts import  get_object_or_404
+from django.shortcuts import get_object_or_404
 from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 from .models import Category, Item
-
-
-def index(request):
-    print(Category.objects.last().slug)
-    return HttpResponse('dsa')
 
 
 class Index(ListView):
@@ -18,3 +14,10 @@ class Index(ListView):
         context = super(Index, self).get_context_data(**kwargs)
         context['category'] = Category.objects.all()
         return context
+
+
+class DetailsPage(DetailView):
+    template_name = 'market/detail.html'
+
+    def get_object(self, queryset=None):
+        return get_object_or_404(Item, slug=self.kwargs['slug'])

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    {% include 'market/includes/head.html' %}
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+</head>
+<body>
+    {% include 'market/includes/header.html' %}
+    {% block content %}
+    {% endblock %}
+</body>
+    {% include 'market/includes/paginator.html' %}
+    {% include 'market/includes/footer.html' %}
+</html>

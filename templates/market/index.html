@@ -1,12 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-{% for object in category %}
-<p> {{ object }} </p>
-{% endfor %}
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}
+    Главная страница
+{% endblock %}
+
+{% block content %}
+        <div class="shop-area pt-100 pb-100 gray-bg">
+            <div class="container">
+                <div class="row flex-row-reverse">
+                    <div class="col-lg-9">
+                        <div class="grid-list-product-wrapper">
+                            <div class="product-view product-grid">
+                                <div class="row">
+                                    {% for object in page_obj %}
+                                          <div class="product-width col-lg-6 col-xl-4 col-md-6 col-sm-6">
+                                            <div class="product-wrapper mb-10">
+                                              <div class="product-img">
+                                                  <a href="{% url 'market:detail' object.slug_category object.slug %}">
+                                                  <img src="{{ object.image_one }}" alt="">
+                                                </a>
+                                              </div>
+                                              <div class="product-content">
+                                                    <h4><a href="{% url 'market:detail' object.slug_category object.slug %}">
+                                                        {{ object.title }}
+                                                </a></h4>
+                                                <div class="product-price">
+                                                  <span class="new">{{ object.price }} ₽ </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="shop-sidebar">
+                            <div class="shop-widget mt-50">
+                                <h4 class="shop-sidebar-title"> Категории </h4>
+                                 <div class="shop-list-style mt-20">
+                                    <ul>
+                                        <li><a href="/">Все товары</a></li>
+                                        {% for case in category %}
+                                            {{ case }}
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}

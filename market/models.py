@@ -1,5 +1,6 @@
 from django.db import models
 from pytils.translit import slugify
+from django.shortcuts import reverse
 
 
 class Category(models.Model):
@@ -28,12 +29,14 @@ class Item(models.Model):
     image_three = models.CharField(max_length=500, verbose_name='Третье фото')
     descriptions = models.TextField(null=False, verbose_name='Описание товара')
     slug = models.SlugField(blank=True, unique=True)
+    slug_category = models.SlugField(blank=True)
 
     def __str__(self):
         return self.title
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
+        self.slug_category = self.category.slug
         super(Item, self).save(*args, **kwargs)
 
     class Meta:

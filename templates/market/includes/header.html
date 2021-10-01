@@ -1,0 +1,58 @@
+{% load static %}
+<header class="header-area">
+            <div class="header-bottom transparent-bar">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-5">
+                            <div class="logo pt-39">
+                                <a href="{% url 'market:index' %}"><img alt="" src="{% static 'market/img/logo/logo.png' %}"></a>
+                            </div>
+                        </div>
+                        <div class="col-xl-8 col-lg-7 d-none d-lg-block">
+                            <div class="main-menu text-center">
+                                <nav>
+                                    <ul>
+                                        <li><a href="index.html">HOME</a>
+                                        </li>
+                                        <li class="mega-menu-position"><a href="shop-page.html">Food</a>
+
+                                        </li>
+                                        <li><a href="#">PAGES</a>
+
+                                        </li>
+                                        <li><a href="blog-leftsidebar.html">Blog</a>
+
+                                        </li>
+                                        <li><a href="about-us.html">ABOUT</a></li>
+                                        <li><a href="contact.html">contact us</a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-lg-2 col-md-8 col-sm-8 col-7">
+                            <div class="search-login-cart-wrapper">
+                                <div class="header-login same-style">
+                                    <!-- >
+                                      Не забыть про регистрицию пользователей
+                                    <-->
+                                </div>
+                                <div class="header-cart same-style">
+                                    <button class="icon-cart">
+                                        <i class="icon-handbag"></i>
+                                        <span class="count-style">0</span>
+                                    </button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</header>
+            {% if messages %}
+            <div class="message">
+            {% for message in messages %}
+                {{ message }}
+                {% endfor %}
+            {% endif %}
+            </div>
