@@ -6,10 +6,7 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from .models import Category, Item
 from django.contrib import messages
-from django.contrib.auth import get_user_model
 from accounts.models import Cart, CartItem
-
-User = get_user_model()
 
 
 class Index(ListView):
@@ -33,19 +30,22 @@ class DetailsPage(DetailView):
     template_name = 'market/detail.html'
 
     def get_object(self, queryset=None):
+        for item in CartItem.objects.all():
+            print(item.product, item.cart.user, item.quantity)
         return get_object_or_404(Item, slug=self.kwargs['slug'])
 
     def post(self, request, *args, **kwargs):
-        user_cart = Cart.objects.get(user=request.user.username)
         amount = int(request.POST['qtybutton'])
         product = self.get_object()
-        if CartItem.objects.filter(cart=request.user.pk) == 0:
+        if len(CartItem.objects.filter(cart=request.user.pk)) == 0:
             Cart.objects.create(user=request.user.username)
+            user_cart = Cart.objects.get(user=request.user.username)
             CartItem.objects.create(product=Item.objects.get(pk=product.pk),
                                     quantity=amount,
                                     price=product.price,
                                     cart=user_cart)
         else:
+            user_cart = Cart.objects.get(user=request.user.username)
             if len(CartItem.objects.filter(cart=request.user.pk,
                                            product=Item.objects.get(pk=product.pk))) == 0:
                 CartItem.objects.create(product=Item.objects.get(pk=product.pk),
