@@ -33,7 +33,7 @@
             <span><i class="ion-android-checkbox-outline"></i> В наличии</span>
           </div>
           <p>{{ object.descriptions }} </p>
-          <form action="" method="post">
+          <form action="{% url 'market:detail' object.slug_category object.slug %}" method="post">
             <div class="quality-wrapper mt-30 product-quantity">
               <label>Кол-во:</label>
               <div class="cart-plus-minus">

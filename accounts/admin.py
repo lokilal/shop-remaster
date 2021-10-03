@@ -1,6 +1,4 @@
 from django.contrib import admin
-from .models import Order, Cart
-
 
 class PostAdmin(admin.ModelAdmin):
     list_display = (
@@ -14,4 +12,4 @@ class PostAdmin(admin.ModelAdmin):
     list_filter = ('date',)
 
 
-admin.site.register(Order, PostAdmin)
+
