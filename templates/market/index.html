@@ -41,9 +41,11 @@
                                 <h4 class="shop-sidebar-title"> Категории </h4>
                                  <div class="shop-list-style mt-20">
                                     <ul>
-                                        <li><a href="/">Все товары</a></li>
+                                        <li><a href="{% url 'market:index' %}">Все товары</a></li>
                                         {% for case in category %}
-                                            {{ case }}
+                                            <li><a href="{% url 'market:categories' case.slug %}">
+                                                {{ case }}
+                                            </a></li>
                                         {% endfor %}
                                     </ul>
                                 </div>

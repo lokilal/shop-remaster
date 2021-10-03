@@ -4,5 +4,57 @@
 {% endblock %}
 
 {% block content %}
-  {{object.price}}
+<div class="shop-area pt-95 pb-100">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 col-md-6">
+        <div class="product-details-img">
+            <img id="zoompro" src="{{ object.image_one }}" data-zoom-image="{{ object.image_one }}" alt="zoom"/>
+            <div id="gallery" class="mt-12 product-dec-slider owl-carousel">
+                <a data-image="{{ object.image_one }}" data-zoom-image="{{ object.image_one }}">
+                    <img src="{{ object.image_one }}" alt="">
+                </a>
+                <a data-image="{{ object.image_two }}" data-zoom-image="{{ object.image_two }}">
+                    <img src="{{ object.image_two }}" alt="">
+                </a>
+                <a data-image="{{ object.image_three }}" data-zoom-image="{{ object.image_three }}">
+                    <img src="{{ object.image_three }}" alt="">
+                </a>
+            </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6">
+        <div class="product-details-content">
+          <h2>{{ object.title }}</h2>
+          <div class="product-price">
+            <span class="new">{{ object.price }} ₽</span>
+          </div>
+          <div class="in-stock">
+            <span><i class="ion-android-checkbox-outline"></i> В наличии</span>
+          </div>
+          <p>{{ object.descriptions }} </p>
+          <form action="" method="post">
+            <div class="quality-wrapper mt-30 product-quantity">
+              <label>Кол-во:</label>
+              <div class="cart-plus-minus">
+                <input class="cart-plus-minus-box" type="text" name="qtybutton" value="1">
+              </div>
+            </div>
+            <div class="product-list-action">
+              <div class="product-list-action-left">
+                {% csrf_token %}
+                <div class="button-box">
+                  <button type="submit" name="addToCart"><span>Добавить в корзину</span></button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="product-list-action-right">
+        </div>
+      </div>
+    </div>
+      </div>
+  </div>
+</div>
 {% endblock %}

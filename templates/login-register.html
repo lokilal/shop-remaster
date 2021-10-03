@@ -1,0 +1,36 @@
+<!doctype html>
+{% load static %}
+<html class="no-js" lang="ru">
+    <head>
+        {% block title %}
+        {% endblock %}
+        {% include 'market/includes/head.html' %}
+    </head>
+    <body>
+{% include 'market/includes/header.html' %}
+        <div class="login-register-area pt-95 pb-100">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-7 col-md-12 ml-auto mr-auto">
+                        <div class="login-register-wrapper">
+                            {% block login %}
+                            {% endblock %}
+                            {% block register %}
+                            {% endblock %}
+                            {% block reset %}
+                            {% endblock %}
+                            {% block reset_done %}
+                            {% endblock %}
+                            {% block reset_confirm %}
+                            {% endblock %}
+                            {% block reset_complete %}
+                            {% endblock %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+		{% include 'market/includes/footer.html' %}
+    </body>
+</html>

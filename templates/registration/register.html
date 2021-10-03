@@ -1,0 +1,25 @@
+{% extends 'login-register.html' %}
+{% block title %}
+    <title>Регистрация</title>
+{% endblock %}
+{% block register %}
+<div class="login-register-tab-list nav">
+    <a class="active" data-toggle="tab" href="{% url 'accounts:login' %}"><h4> Ввойти </h4></a>
+    <a data-toggle="tab" href="{% url 'accounts:register' %}"><h4> Зарегистрироваться </h4>
+    </a>
+</div>
+<div id="lg2" class="tab-pane">
+    <div class="login-form-container">
+        <div class="login-register-form">
+            <form action="" method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    {% csrf_token %}
+                <div class="button-box">
+                    <button type="submit"><span>Зарегистрироваться</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

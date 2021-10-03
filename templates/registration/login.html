@@ -1,0 +1,42 @@
+{% extends 'login-register.html' %}
+{% block title %}
+    <title>Авторизация</title>
+{% endblock %}
+{% block login %}
+<div class="login-register-tab-list nav">
+    <a class="active" data-toggle="tab" href="{% url 'accounts:login' %}"><h4> Ввойти </h4></a>
+    <a data-toggle="tab" href="{% url 'accounts:register' %}"><h4> Зарегистрироваться </h4>
+    </a>
+</div>
+<div class="tab-content">
+    <div id="lg1" class="tab-pane active">
+        <div class="login-form-container">
+            <div class="login-register-form">
+            {% if form.errors %}
+                <p>Неправильно введен логин или пароль. Пожалуйста, повторите попытку.</p>
+            {% endif %}
+            {% if next %}
+                {% if user.is_authenticated %}
+                <p>Your account doesn't have access to this page. To proceed,
+                     please login with an account that has access.</p>
+             {% else %}
+                    <p>Please login to see this page.</p>
+                {% endif %}
+            {% endif %}
+                <form method="post" action="{% url 'accounts:login' %}">
+                {% csrf_token %}
+                {{ form.username.label_tag }}
+                {{ form.username }}
+                {{ form.password.label_tag }}
+                {{ form.password }}
+                    <p><a href="{% url 'accounts:password_reset' %}">Забыли пароль?</a></p>
+                    <div class="button-box">
+                        <button type="submit"><span>Авторизироваться</span></button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

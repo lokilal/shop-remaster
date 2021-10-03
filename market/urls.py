@@ -7,4 +7,5 @@ app_name = 'market'
 urlpatterns = [
     path('', views.Index.as_view(), name='index'),
     path('<slug:slug_category>/<slug:slug>/', views.DetailsPage.as_view(), name='detail'),
+    path('<slug:slug_category>/', views.CategoryItems.as_view(), name="categories"),
 ]
