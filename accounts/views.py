@@ -1,9 +1,9 @@
 from django.http import HttpResponse
 from django.views.generic.list import ListView
 from .forms import CustomUserCreationForm
-from django.shortcuts import render, redirect, get_list_or_404
+from django.shortcuts import render, redirect
 from django.contrib import messages
-from accounts.models import Cart, CartItem
+from accounts.models import CartItem
 from market.models import Item
 
 
@@ -38,14 +38,15 @@ def info(request):
     return HttpResponse(f'Это профиль {request.user.username}')
 
 
-def showCart(requset):
-    return HttpResponse(f"Это корзина пользователя {requset.user.username}")
-
-
 class ShowCart(ListView):
     template_name = 'market/cart.html'
     model = Item
 
     def get_queryset(self):
         return CartItem.objects.filter(cart__user=self.request.user.username)
+
+    def post(self, request, *args, **kwargs):
+        pk_delete = int(request.POST['delFromCart'])
+        self.get_queryset()[pk_delete].delete()
+        return redirect('accounts:cart')
 
