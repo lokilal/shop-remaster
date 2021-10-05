@@ -47,5 +47,5 @@ class ShowCart(ListView):
     model = Item
 
     def get_queryset(self):
-        return CartItem.objects.filter(cart=self.request.user.pk)
+        return CartItem.objects.filter(cart__user=self.request.user.username)
 

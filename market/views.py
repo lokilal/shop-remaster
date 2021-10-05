@@ -35,7 +35,9 @@ class DetailsPage(DetailView):
     def post(self, request, *args, **kwargs):
         amount = int(request.POST['qtybutton'])
         product = self.get_object()
-        if len(CartItem.objects.filter(cart=request.user.pk)) == 0:
+        if len(Cart.objects.filter(user=request.user.username)) == 0:
+            """Если корзины не существовало, то создадим ее"""
+            print('Создали корзину ')
             Cart.objects.create(user=request.user.username)
             user_cart = Cart.objects.get(user=request.user.username)
             CartItem.objects.create(product=Item.objects.get(pk=product.pk),
@@ -43,17 +45,21 @@ class DetailsPage(DetailView):
                                     price=product.price,
                                     cart=user_cart)
         else:
+            """Если корзина уже создана"""
+            print("Корзина создана")
             user_cart = Cart.objects.get(user=request.user.username)
-            if len(CartItem.objects.filter(cart=request.user.pk,
+            if len(CartItem.objects.filter(cart__user=request.user.username,
                                            product=Item.objects.get(pk=product.pk))) == 0:
+                """Если товара нет в корзине"""
                 CartItem.objects.create(product=Item.objects.get(pk=product.pk),
                                         quantity=amount,
                                         price=product.price,
                                         cart=user_cart)
             else:
-                last_amount = CartItem.objects.filter(cart=request.user.pk,
+                """Если товар в корзине, нужно добавить к количеству"""
+                last_amount = CartItem.objects.filter(cart__user=request.user.username,
                                                       product=Item.objects.get(pk=product.pk))[0].quantity
-                CartItem.objects.filter(cart=request.user.pk,
+                CartItem.objects.filter(cart__user=request.user.username,
                                         product=Item.objects.get(pk=product.pk)).update(quantity=last_amount + amount)
         messages.success(request, 'Успешно добавлено в корзину')
         return redirect('market:index')
