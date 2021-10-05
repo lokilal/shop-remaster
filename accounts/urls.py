@@ -2,12 +2,13 @@ from django.contrib.auth import views
 from django.urls import path
 from accounts.views import register
 from accounts.views import PasswordResetDone, PasswordResetComplete
-
+from .views import info, ShowCart
 
 app_name = 'accounts'
 
 urlpatterns = [
-    #path('info/', Account.as_view(), name='info'),
+    path('cart/', ShowCart.as_view(), name='cart'),
+    path('info/', info, name='info'),
     path('login/', views.LoginView.as_view(), name='login'),
     path('register/', register, name='register'),
     path('reset_password/', views.PasswordResetView.as_view(), name='password_reset'),

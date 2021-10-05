@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load mathfilters %}
+
+
+{% block title %}
+  Корзина
+{% endblock %}
+
+{% block content %}
+<div class="cart-main-area pt-95 pb-100">
+            <div class="container">
+                <h3 class="page-title">Товары в вашей корзине</h3>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                        <form action="#">
+                            <div class="table-content table-responsive">
+                                <table>
+                                    {% if object_list %}
+                                    <thead>
+                                        <tr>
+                                            <th>&nbsp;</th>
+                                            <th>Название товара</th>
+                                            <th>Кол-во</th>
+                                            <th>Стоимость</th>
+                                            <th>Удалить</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% endif %}
+                                    <tr> <td> <h3> Корзина пуста</h3> </td>  </tr>
+                                    {% for item in object_list %}
+                                    <tr>
+                                            <td class="product-thumbnail">
+                                                <a href="#">
+                                                    Картинка </a>
+                                            </td>
+                                            <td class="product-name">
+                                                <a href="#">
+                                                {{ item.product }}</a></td>
+                                            <td class="product-quantity">
+                                                {{ item.quantity }}
+                                            </td>
+                                            <td class="product-subtotal">{{ item.price|mul:item.quantity  }} </td>
+                                             <td class="product-remove">
+                                             <form action="" method="POST">
+                                             </form>
+                                             <form action="" method="POST">
+                                                 <div class="del-from-cart">
+                                                     {% csrf_token %}
+                                                <button type="submit" name="delFromCart" value="{{ forloop.counter0 }}"> <i class="ti-trash"></i> </button>
+                                             </div>
+                                             </form>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}

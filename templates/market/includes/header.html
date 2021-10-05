@@ -32,16 +32,16 @@
                         <div class="col-xl-2 col-lg-2 col-md-8 col-sm-8 col-7">
                             <div class="search-login-cart-wrapper">
                                 <div class="header-login same-style">
-                                    <!-- >
-                                      Не забыть про регистрицию пользователей
-                                    <-->
+                                    {% if request.user.is_authenticated %}
+                                    <a href="{% url 'accounts:info' %}"><i class="icon-user icons"></i></a>
+                                    {% else %}
+                                        <a href="{% url 'accounts:login' %}"><i class="icon-user icons"></i></a>
+                                    {% endif %}
                                 </div>
                                 <div class="header-cart same-style">
-                                    <button class="icon-cart">
+                                    <a href="{% url 'accounts:cart' %}">
                                         <i class="icon-handbag"></i>
-                                        <span class="count-style">0</span>
-                                    </button>
-
+                                    </a>
                                 </div>
                             </div>
                         </div>

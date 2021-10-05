@@ -30,8 +30,6 @@ class DetailsPage(DetailView):
     template_name = 'market/detail.html'
 
     def get_object(self, queryset=None):
-        for item in CartItem.objects.all():
-            print(item.product, item.cart.user, item.quantity)
         return get_object_or_404(Item, slug=self.kwargs['slug'])
 
     def post(self, request, *args, **kwargs):
