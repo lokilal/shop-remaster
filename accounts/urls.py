@@ -2,7 +2,8 @@ from django.contrib.auth import views
 from django.urls import path
 from accounts.views import register
 from accounts.views import PasswordResetDone, PasswordResetComplete
-from .views import info, ShowCart
+from .views import info
+from market.views import ShowCart
 
 app_name = 'accounts'
 

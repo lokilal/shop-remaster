@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% load mathfilters %}
 
-
 {% block title %}
   Корзина
 {% endblock %}
@@ -26,19 +25,19 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    {% for item in object_list %}
+                                    {% for item, quantity in object_list.items %}
                                     <tr>
                                             <td class="product-thumbnail">
-                                                <a href="{% url 'market:detail' item.product.slug_category item.product.slug %}">
-                                                    <img src="{{ item.product.image_one }}" alt="" width="82" height="82"></a>
+                                                <a href="{% url 'market:detail' item.slug_category item.slug %}">
+                                                    <img src="{{ item.image_one }}" alt="" width="82" height="82"></a>
                                             </td>
                                             <td class="product-name">
-                                                <a href="{% url 'market:detail' item.product.slug_category item.product.slug %}">
-                                                {{ item.product }}</a></td>
+                                                <a href="{% url 'market:detail' item.slug_category item.slug %}">
+                                                {{ item.title }}</a></td>
                                             <td class="product-quantity">
-                                                {{ item.quantity }}
+                                                {{ quantity }}
                                             </td>
-                                            <td class="product-subtotal">{{ item.price|mul:item.quantity  }} </td>
+                                            <td class="product-subtotal">{{ item.price|mul:quantity  }} </td>
                                              <td class="product-remove">
                                                  <div class="del-from-cart">
                                                      {% csrf_token %}
@@ -53,6 +52,18 @@
                                     </tbody>
                                 </table>
                             </div>
+                            {% if object_list %}
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="cart-shiping-update-wrapper">
+                                        <h4> Итог: {{ total_price }} ₽</h4>
+                                        <div class="payment">
+                                            <button type="submit" name="payment" value="pay"> Оплатить </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
                         </form>
                     </div>
                 </div>

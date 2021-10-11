@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.views.generic.list import ListView
 from .forms import CustomUserCreationForm
@@ -34,19 +35,7 @@ def PasswordResetComplete(request):
     return redirect('accounts:login')
 
 
+@login_required()
 def info(request):
-    return HttpResponse(f'Это профиль {request.user.username}')
-
-
-class ShowCart(ListView):
-    template_name = 'market/cart.html'
-    model = Item
-
-    def get_queryset(self):
-        return CartItem.objects.filter(cart__user=self.request.user.username)
-
-    def post(self, request, *args, **kwargs):
-        pk_delete = int(request.POST['delFromCart'])
-        self.get_queryset()[pk_delete].delete()
-        return redirect('accounts:cart')
+    return render(request, 'market/profile.html')
 
