@@ -95,16 +95,14 @@ class ShowCart(ListView):
         return context
 
     def get_queryset(self):
+        queryset = {}
         if self.request.user.is_authenticated:
             items = CartItem.objects.filter(cart__user=self.request.user.username)
-            queryset = {}
             for item in items:
                 queryset[item.product] = item.quantity
         else:
-            if len(session_cart['cart']) > 0 :
+            if len(session_cart['cart']) > 0:
                 queryset = session_cart['cart']
-            else:
-                queryset = {}
         return queryset
 
     def post(self, request, *args, **kwargs):
