@@ -10,11 +10,12 @@ from accounts.models import Cart, CartItem
 session_cart = SessionStore()
 session_cart.create()
 session_cart = SessionStore(session_key=session_cart.session_key)
+session_cart['cart'] = {}
 
 
 class Index(ListView):
     model = Item
-    paginate_by = 25
+    paginate_by = 18
     template_name = 'market/index.html'
 
     def get_context_data(self, **kwargs):
@@ -77,7 +78,6 @@ class DetailsPage(DetailView):
                     session_cart['cart'][Item.objects.get(pk=product.pk)] = amount
             else:
                 """Если корзина не создна, то создадим ее"""
-                session_cart['cart'] = {}
                 session_cart['cart'][Item.objects.get(pk=product.pk)] = amount
         messages.success(request, 'Успешно добавлено в корзину')
         return redirect('market:index')
@@ -101,7 +101,10 @@ class ShowCart(ListView):
             for item in items:
                 queryset[item.product] = item.quantity
         else:
-            queryset = session_cart['cart']
+            if len(session_cart['cart']) > 0 :
+                queryset = session_cart['cart']
+            else:
+                queryset = {}
         return queryset
 
     def post(self, request, *args, **kwargs):
