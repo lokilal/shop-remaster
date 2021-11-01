@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'market',
     'accounts',
     'mathfilters',
+    'api',
 ]
 
 MIDDLEWARE = [
